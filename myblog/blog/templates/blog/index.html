@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+auth
+{% else %}
+not auth
+{% endif %}
+Hello, {{us}}
+<br>
+
+<a href="{% url 'signup' %}">signup</a><br>
+<a href="{% url 'login' %}">login</a><br>
+<a href="{% url 'logout' %}">logout</a><br>
+<a href="{% url 'newarticle' %}">create article</a><br>
+
+{% for article in articles %}
+<hr>
+<a href="{{ article.get_absolute_url }}">{{article.name|linebreaks|truncatewords:50}}</a>
+{% endfor %}
+
+{% endblock %}

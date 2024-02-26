@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% if user.id == article.author.id %}
+
+<form action="{% url 'editarticle' article.slug %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Ввод</button>
+</form>
+
+{% endif %}
+
+{% endblock %}

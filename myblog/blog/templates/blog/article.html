@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+{{article.name}}<br>
+{{article.desc}}<br>
+<img src="{{article.img.url}}"></img>
+
+{% if user.id == article.author.id %}
+<a href="{% url 'editarticle' article.slug %}">edit</a>
+<a href="{% url 'deletearticle' article.slug %}">delete</a>
+{% endif %}
+
+{% for c in com %}
+    <hr>
+    {{c.author}}
+    {{c.msg}}
+{% endfor %}
+
+<hr>
+<form action="{% url 'newcomment' article.slug %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ comform.as_p }}
+    <button type="submit">Ввод</button>
+</form>
+
+{% endblock %}
